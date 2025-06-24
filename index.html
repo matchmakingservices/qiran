@@ -49,6 +49,7 @@
       margin: 4rem auto 6rem;
       position: relative;
       max-width: 600px;
+      perspective: 1000px;
     }
 
     #my-flipbook {
@@ -62,6 +63,8 @@
       height: 400px;
       background: #fffaf3;
       position: absolute;
+      transform-style: preserve-3d;
+      transition: transform 1s;
     }
 
     .page-content {
@@ -121,7 +124,7 @@
   </section>
 
   <div class="book-section">
-    <div class="book-nav-arrow arrow-left" onclick="$('#my-flipbook').turn('previous')">‹</div>
+    <div class="book-nav-arrow arrow-left" onclick="if ($('#my-flipbook').turn('page') > 1) $('#my-flipbook').turn('previous')">‹</div>
     <div id="my-flipbook">
       <div class="page"><div class="page-content">Step 1: Complete the Qiran Form – This helps us understand your values, lifestyle, and preferences.</div></div>
       <div class="page"><div class="page-content">Step 2: Initial Interview – A short conversation to discuss your expectations and confirm alignment.</div></div>
@@ -131,7 +134,7 @@
       <div class="page"><div class="page-content">Step 6: Proposal Phase – With family consent, a formal proposal is arranged with proper Islamic decorum.</div></div>
       <div class="page"><div class="page-content">Step 7: Post-Proposal Support – Guidance on engagement, Nikah prep, and spiritual harmony as you begin your life together.</div></div>
     </div>
-    <div class="book-nav-arrow arrow-right" onclick="$('#my-flipbook').turn('next')">›</div>
+    <div class="book-nav-arrow arrow-right" onclick="if ($('#my-flipbook').turn('page') < $('#my-flipbook').turn('pages')) $('#my-flipbook').turn('next')">›</div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -143,9 +146,10 @@
         height: 400,
         autoCenter: true,
         gradients: true,
-        elevation: 50,
+        elevation: 100,
         display: 'double',
         acceleration: true,
+        duration: 1000,
         turnCorners: 'bl,br'
       });
     });

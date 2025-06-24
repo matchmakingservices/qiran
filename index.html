@@ -129,21 +129,29 @@
   }
 }
 
-    .title-arabic {
-      font-size: 5rem;
-      font-family: 'Amiri', serif;
-      font-weight: 400;
-      background: linear-gradient(90deg, #d4af37, #c59d2f, #b58e42);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: drawArabic 3s ease-out forwards;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 2px solid #d4af37;
-      width: 0;
-      margin: 0 auto;
-    }
+  .arabic-draw-container {
+  text-align: center;
+  margin-top: 8rem;
+  margin-bottom: 2rem;
+}
+
+.arabic-heading {
+  width: 300px;
+  height: 100px;
+  animation: drawArabic 3s ease forwards;
+}
+
+@keyframes drawArabic {
+  from {
+    stroke-dashoffset: 900;
+    opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
 
     @keyframes drawArabic {
       0% { width: 0; }
@@ -279,11 +287,25 @@
   </div>
 </header>
 
-  <section class="hero">
-    <div class="title-arabic">قِرَان</div>
-    <div class="subtitle">Qiran – Where souls meet in sacred harmony</div>
-    <button class="cta-button">Start Your Journey</button>
-  </section>
+<div class="arabic-draw-container">
+  <svg viewBox="0 0 500 100" class="arabic-heading">
+    <defs>
+      <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#d4af37" />
+        <stop offset="100%" stop-color="#b58e42" />
+      </linearGradient>
+    </defs>
+    <path d="M50,60 Q60,30 80,60 T130,60 Q140,30 160,60 T210,60 Q220,30 240,60 T290,60 Q300,30 320,60" 
+          fill="none" 
+          stroke="url(#gold-gradient)" 
+          stroke-width="3" 
+          stroke-linecap="round" 
+          stroke-dasharray="900" 
+          stroke-dashoffset="900" />
+    <text x="80" y="70" text-anchor="middle" font-size="42" fill="url(#gold-gradient)" font-family="'Amiri', serif">قِرَان</text>
+  </svg>
+</div>
+
 
 <section class="book-section">
   <div class="book-container">

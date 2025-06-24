@@ -6,51 +6,46 @@
   <title>قِرَان - Qiran</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
 
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      scroll-behavior: smooth;
       font-family: 'Playfair Display', serif;
-      background-color: #fefae0;
-      color: #b58e42;
+      scroll-behavior: smooth;
       overflow-x: hidden;
+      background: #fefae0;
+      position: relative;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
+    /* Islamic Pattern Background */
     body::before {
       content: "";
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
       height: 100%;
-      background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
-      opacity: 0.07;
+      width: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='5' cy='5' r='0.4' fill='%23e0c383'/%3E%3C/svg%3E");
+      opacity: 0.08;
       z-index: -1;
-      background-size: contain;
     }
 
     header {
       position: fixed;
-      top: 0;
       width: 100%;
+      top: 0;
       padding: 1.2rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: rgba(255, 250, 230, 0.9);
+      background: rgba(255, 250, 230, 0.9);
       box-shadow: 0 1px 8px rgba(0,0,0,0.05);
       z-index: 1000;
     }
 
     .logo {
-      font-family: 'Playfair Display';
       font-weight: bold;
       font-size: 1.4rem;
       color: #b58e42;
@@ -74,25 +69,26 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 0 1rem;
       text-align: center;
-      animation: smoothFade 1s ease-out;
+      padding: 0 1rem;
+      animation: fadeIn 1.2s ease-out;
     }
 
     .title-arabic {
-      font-size: 6.5rem;
-      font-weight: 400;
-      font-family: 'Noto Naskh Arabic', serif;
+      font-family: 'Scheherazade New', serif;
+      font-size: 7rem;
       direction: rtl;
+      background: linear-gradient(to right, #bda873, #e8d59f, #b58e42);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       letter-spacing: 1px;
-      animation: smoothFade 1.2s ease-out;
+      margin-bottom: 1rem;
     }
 
     .subtitle {
-      font-size: 1.2rem;
-      margin-top: 1rem;
+      font-size: 1.25rem;
       color: #b49a6b;
-      animation: smoothFade 1.4s ease-out;
+      animation: fadeIn 1.5s ease-out;
     }
 
     .cta-button {
@@ -105,15 +101,16 @@
       color: #9c7b34;
       font-weight: 500;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, transform 0.2s;
     }
 
     .cta-button:hover {
       background-color: #f8d68a;
+      transform: scale(1.03);
     }
 
-    @keyframes smoothFade {
-      0% { opacity: 0; transform: translateY(20px); }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(30px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
@@ -137,12 +134,11 @@
       }
 
       header {
-        padding: 1rem 1.5rem;
+        padding: 1rem 1.2rem;
       }
     }
   </style>
 </head>
-
 <body>
 
   <!-- Header -->
@@ -155,7 +151,7 @@
     </nav>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <div class="container">
     <div class="title-arabic">قِرَان</div>
     <div class="subtitle">Qiran – Where souls meet in sacred harmony</div>

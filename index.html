@@ -4,28 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>قِرَان - Qiran</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
   <style>
-    html, body {
+    /* General Reset */
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Playfair Display', serif;
-      background: linear-gradient(to bottom, #fefae0, #fcebd5);
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Amiri', serif;
+      background: url('https://www.transparenttextures.com/patterns/arabesque.png'), linear-gradient(to bottom, #fffaf0, #fbe8d3);
       color: #b58e42;
-      scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 1.2rem 2rem;
-      background-color: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 1000;
+      padding: 1.2rem 2rem;
+      background: rgba(255, 255, 255, 0.8);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header a.logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: #b58e42;
     }
 
     nav a {
@@ -36,203 +46,267 @@
     }
 
     nav a:hover {
-      color: #9c7b34;
+      color: #a67c00;
     }
 
-    .container {
-      padding-top: 30vh;
-      padding-bottom: 20vh;
+    /* Arabic Title Animation */
+    .hero {
       text-align: center;
+      padding: 15vh 2rem 5vh;
+      position: relative;
     }
+/* Navbar Enhancements */
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.menu-icon {
+  font-size: 2rem;
+  cursor: pointer;
+  display: none;
+  color: #b58e42;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #b58e42;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -4px;
+  background-color: #b58e42;
+  transition: width 0.3s ease;
+}
+
+.navbar-links a:hover::after {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+
+  .navbar-links {
+    width: 100%;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 0;
+    margin-top: 1rem;
+  }
+
+  #menu-toggle:checked + .menu-icon + .navbar-links {
+    max-height: 500px;
+  }
+
+  .navbar-links a {
+    padding: 0.5rem 0;
+  }
+}
 
     .title-arabic {
-      font-size: 6rem;
+      font-size: 5rem;
       font-family: 'Amiri', serif;
-      color: #b58e42;
+      font-weight: 400;
+      background: linear-gradient(90deg, #d4af37, #c59d2f, #b58e42);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: drawArabic 3s ease-out forwards;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #d4af37;
+      width: 0;
+      margin: 0 auto;
+    }
+
+    @keyframes drawArabic {
+      0% { width: 0; }
+      100% { width: 12ch; border-right: none; }
     }
 
     .subtitle {
-      font-size: 1.2rem;
-      color: #b49a6b;
       margin-top: 1rem;
+      font-size: 1.2rem;
+      color: #9c7b34;
     }
 
     .cta-button {
       margin-top: 2rem;
-      padding: 0.8rem 2rem;
+      padding: 0.75rem 2rem;
+      border: none;
       background-color: #f9e1aa;
       color: #9c7b34;
-      border: none;
+      font-weight: bold;
       border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
-    }
-
-    .cta-button:hover {
-      background-color: #f8d68a;
     }
 
     /* Flipbook Section */
-    #qiran-process {
-      padding: 4rem 1rem;
-      background-color: #fdf7ea;
-      text-align: center;
-    }
-
-    #flipbook-container {
+    .flipbook-container {
+      margin: 5rem auto;
+      width: 90%;
+      max-width: 800px;
+      perspective: 2000px;
       position: relative;
-      width: 320px;
-      height: 200px;
-      margin: 2rem auto;
-      perspective: 1500px;
     }
 
-    .book-page {
+    .book {
+      width: 100%;
+      height: 400px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+
+    .page {
+      position: absolute;
       width: 100%;
       height: 100%;
-      background: #fff8e6;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      position: absolute;
-      top: 0;
-      left: 0;
+      background: #fff8ed;
+      color: #5c4521;
+      border-radius: 6px;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       backface-visibility: hidden;
       transform-origin: left;
-      border-radius: 8px;
-      padding: 1.5rem;
-      box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      font-weight: 500;
+      transition: transform 1s;
     }
 
-    .page-wrapper {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      transition: transform 1.2s ease;
+    .page h2 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .page p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .page:nth-child(even) {
+      transform: rotateY(180deg);
+      z-index: 1;
     }
 
     .arrow {
-      cursor: pointer;
-      font-size: 2rem;
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #c3a663;
-      z-index: 10;
+      top: 45%;
+      font-size: 2rem;
+      color: #b58e42;
+      cursor: pointer;
+      background: rgba(255,255,255,0.6);
+      padding: 0.5rem 1rem;
+      border-radius: 50%;
+      user-select: none;
     }
 
-    .arrow:hover {
-      color: #a88c42;
+    .arrow.left {
+      left: -3rem;
     }
 
-    #prev {
-      left: -2rem;
+    .arrow.right {
+      right: -3rem;
     }
 
-    #next {
-      right: -2rem;
-    }
-
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .title-arabic {
-        font-size: 4rem;
+        font-size: 3.2rem;
       }
-      #flipbook-container {
-        width: 90%;
+      .page {
+        height: 300px;
+        padding: 1rem;
       }
-      .arrow {
-        font-size: 1.5rem;
-      }
+      .arrow.left { left: -2rem; }
+      .arrow.right { right: -2rem; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div style="font-weight: bold;">Qiran</div>
-    <nav>
+  <div class="navbar-container">
+    <a href="index.html" class="logo">Qiran</a>
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+    <nav class="navbar-links">
       <a href="services.html">Services</a>
       <a href="mission.html">Our Mission</a>
       <a href="contact.html">Contact</a>
     </nav>
-  </header>
+  </div>
+</header>
 
-  <div class="container">
+  <section class="hero">
     <div class="title-arabic">قِرَان</div>
     <div class="subtitle">Qiran – Where souls meet in sacred harmony</div>
     <button class="cta-button">Start Your Journey</button>
-  </div>
+  </section>
 
-  <!-- Flipbook Section -->
-  <section id="qiran-process">
-    <h2 style="font-size: 2rem; color: #b58e42;">The Qiran Process</h2>
-    <div id="flipbook-container">
-      <div id="prev" class="arrow">&#8592;</div>
-      <div id="next" class="arrow">&#8594;</div>
-      <div class="page-wrapper" id="page0" style="z-index:5;">
-        <div class="book-page">Welcome to the Qiran Process</div>
+  <section class="flipbook-container">
+    <div class="arrow left" onclick="flipPage(-1)">‹</div>
+    <div class="arrow right" onclick="flipPage(1)">›</div>
+
+    <div class="book" id="book">
+      <div class="page" style="z-index:5;">
+        <h2>Step 1: Discovery</h2>
+        <p>You fill out our detailed Qiran form or contact us for personalized rishta matchmaking.</p>
       </div>
-      <div class="page-wrapper" id="page1" style="z-index:4;">
-        <div class="book-page">Step 1: Fill your profile with sincerity</div>
+      <div class="page" style="z-index:4;">
+        <h2>Step 2: Compatibility</h2>
+        <p>We carefully evaluate compatibility, values, and background before recommending matches.</p>
       </div>
-      <div class="page-wrapper" id="page2" style="z-index:3;">
-        <div class="book-page">Step 2: Personal consultation with the founder</div>
+      <div class="page" style="z-index:3;">
+        <h2>Step 3: Introduction</h2>
+        <p>Farheen personally arranges the initial connection and facilitates understanding.</p>
       </div>
-      <div class="page-wrapper" id="page3" style="z-index:2;">
-        <div class="book-page">Step 3: We begin curated matching & dua</div>
+      <div class="page" style="z-index:2;">
+        <h2>Step 4: Communication</h2>
+        <p>We help coordinate meetings and answer questions with full Islamic integrity.</p>
       </div>
-      <div class="page-wrapper" id="page4" style="z-index:1;">
-        <div class="book-page">Step 4: Guided meetings & family involvement</div>
-      </div>
-      <div class="page-wrapper" id="page5" style="z-index:0;">
-        <div class="book-page">Step 5: A journey begins with Allah's mercy</div>
+      <div class="page" style="z-index:1;">
+        <h2>Step 5: Nikkah Support</h2>
+        <p>When hearts align, we help your families move toward a blessed nikkah with dua.</p>
       </div>
     </div>
   </section>
 
   <script>
     let currentPage = 0;
-    const pages = document.querySelectorAll('.page-wrapper');
-    const totalPages = pages.length;
+    const pages = document.querySelectorAll(".page");
 
-    function updatePages() {
-      pages.forEach((page, index) => {
-        if (index <= currentPage) {
-          page.style.transform = 'rotateY(-180deg)';
-        } else {
-          page.style.transform = 'rotateY(0deg)';
-        }
-      });
+    function flipPage(direction) {
+      if ((direction === 1 && currentPage >= pages.length) ||
+          (direction === -1 && currentPage <= 0)) return;
+
+      pages[currentPage].style.transform = direction === 1 ? "rotateY(-180deg)" : "rotateY(0deg)";
+      currentPage += direction;
     }
-
-    document.getElementById('next').addEventListener('click', () => {
-      if (currentPage < totalPages - 1) {
-        currentPage++;
-        updatePages();
-      }
-    });
-
-    document.getElementById('prev').addEventListener('click', () => {
-      if (currentPage > 0) {
-        currentPage--;
-        updatePages();
-      }
-    });
-
-    // Auto flip on load
-    setTimeout(() => {
-      const interval = setInterval(() => {
-        if (currentPage < totalPages - 1) {
-          currentPage++;
-          updatePages();
-        } else {
-          clearInterval(interval);
-        }
-      }, 2000);
-    }, 1000);
   </script>
+
 </body>
 </html>

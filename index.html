@@ -1,223 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>قِرَان - Qiran</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>قِرَان – Qiran</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip/dist/page-flip.browser.min.css" />
+<style>
+  * { margin:0; padding:0; box-sizing: border-box; }
+  body {
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(to bottom, #fff8f2, #fbeedb);
+    color: #b58e42;
+    overflow-x: hidden;
+  }
 
-    body {
-      font-family: 'Playfair Display', serif;
-      background: linear-gradient(145deg, #fff8f2, #fbeedb);
-      color: #b58e42;
-      overflow-x: hidden;
-    }
+  header {
+    position: fixed; top:0; width:100%; 
+    padding:1rem 2rem; background:rgba(255,255,255,0.8);
+    backdrop-filter: blur(6px); z-index:100;
+    display: flex; justify-content:space-between; align-items:center;
+  }
+  .logo { font-size:1.4rem; font-weight:bold; cursor:pointer; }
+  nav a { margin-left:1.5rem; color:#b58e42; text-decoration:none; font-weight:500; }
+  nav a:hover { color:#9c7b34; }
 
-    header {
-      width: 100%;
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(8px);
-      z-index: 100;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
+  .hero {
+    text-align:center;
+    padding:25vh 1rem 10vh;
+  }
+  .title-arabic {
+    font-size:5rem; font-family:'Amiri', serif;
+    background:linear-gradient(90deg, #d4af37, #eac97a);
+    -webkit-background-clip:text; color:transparent;
+    animation:fadeIn 2s ease forwards;
+  }
+  .subtitle { font-size:1.2rem; margin-top:0.5rem; color:#b49a6b;}
+  .cta-button {
+    margin-top:2rem; padding:0.8rem 2rem; background:#f9e1aa; 
+    color:#9c7b34; border:none; border-radius:8px; cursor:pointer;font-weight:bold;
+  }
+  .cta-button:hover { background:#f8d68a; }
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      cursor: pointer;
-      color: #b58e42;
-    }
+  .book-section {
+    display: flex;
+    justify-content: center;
+    margin: 4rem 0 6rem;
+  }
 
-    nav a {
-      margin-left: 1.5rem;
-      text-decoration: none;
-      color: #b58e42;
-      font-weight: 500;
-      transition: 0.3s;
-    }
+  #my-flipbook {
+    width: 600px;
+    height: 400px;
+  }
 
-    nav a:hover {
-      color: #9c7b34;
-    }
+  .page-content {
+    padding: 2rem;
+    background: #fffaf3;
+    font-size: 1rem;
+    color: #7a6b53;
+  }
 
-    .container {
-      text-align: center;
-      padding-top: 25vh;
-      padding-bottom: 5vh;
-    }
+  .book-nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #a08852;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.3s;
+  }
+  .book-nav-arrow:hover {
+    background-color: rgba(255,255,255,1);
+  }
+  .arrow-left { left: calc(50% - 340px); }
+  .arrow-right { right: calc(50% - 340px); }
 
-    .title-arabic {
-      font-size: 5rem;
-      font-family: 'Amiri', serif;
-      background: linear-gradient(to right, #d4af37, #eac97a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: fadeIn 2s ease forwards;
-    }
-
-    .subtitle {
-      font-size: 1.2rem;
-      margin-top: 1rem;
-      color: #b49a6b;
-    }
-
-    .cta-button {
-      margin-top: 2rem;
-      padding: 0.8rem 2rem;
-      border: none;
-      background-color: #f9e1aa;
-      color: #9c7b34;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .cta-button:hover {
-      background-color: #f8d68a;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Book Section */
-    .book-section {
-      margin-top: 10vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    .book-container {
-      perspective: 2000px;
-      width: 300px;
-      height: 400px;
-      position: relative;
-    }
-
-    .book {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      transform-style: preserve-3d;
-      transition: transform 1s ease;
-    }
-
-    .page {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      background-color: #fffaf3;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      border: 1px solid #e5d5b4;
-      backface-visibility: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      padding: 1rem;
-    }
-
-    .page:nth-child(1) { transform: rotateY(0deg); }
-    .page:nth-child(2) { transform: rotateY(180deg); }
-    .page:nth-child(3) { transform: rotateY(360deg); }
-    .page:nth-child(4) { transform: rotateY(540deg); }
-    .page:nth-child(5) { transform: rotateY(720deg); }
-
-    .nav-buttons {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    .nav-buttons button {
-      background: rgba(255, 255, 255, 0.5);
-      border: 1px solid #d9c28f;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      font-weight: bold;
-      color: #a08852;
-    }
-
-    @media (max-width: 600px) {
-      .title-arabic { font-size: 3rem; }
-      .subtitle { font-size: 1rem; padding: 0 1rem; }
-      .book-container { width: 260px; height: 350px; }
-    }
-  </style>
+  @media (max-width:600px){
+    .hero .title-arabic { font-size:3rem; }
+    #my-flipbook { width: 300px; height: 200px; }
+    .arrow-left { left: 10px; }
+    .arrow-right { right: 10px; }
+  }
+</style>
 </head>
 <body>
   <header>
-    <div class="logo" onclick="window.location.href='index.html'">Qiran</div>
-    <nav>
-      <a href="services.html">Services</a>
-      <a href="mission.html">Our Mission</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <div class="logo" onclick="location.href='index.html'">Qiran</div>
+    <nav><a href="services.html">Services</a><a href="mission.html">Our Mission</a><a href="contact.html">Contact</a></nav>
   </header>
 
-  <div class="container">
+  <section class="hero">
     <div class="title-arabic">قِرَان</div>
     <div class="subtitle">Where souls meet in sacred harmony</div>
     <button class="cta-button">Start Your Journey</button>
-  </div>
-
-  <section class="book-section">
-    <div class="book-container">
-      <div id="book" class="book">
-        <div class="page">Step 1: Initial Consultation</div>
-        <div class="page">Step 2: Family Background Review</div>
-        <div class="page">Step 3: Match Shortlisting</div>
-        <div class="page">Step 4: Family Coordination</div>
-        <div class="page">Step 5: Final Meeting & Proposal</div>
-      </div>
-    </div>
-    <div class="nav-buttons">
-      <button onclick="prevPage()">&lt;</button>
-      <button onclick="nextPage()">&gt;</button>
-    </div>
   </section>
 
+  <div class="book-section">
+    <div class="book-nav-arrow arrow-left" onclick="flip.prev()">‹</div>
+    <div id="my-flipbook"></div>
+    <div class="book-nav-arrow arrow-right" onclick="flip.next()">›</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/page-flip.browser.min.js"></script>
   <script>
-    let currentPage = 0;
-    const book = document.getElementById('book');
-    const pages = document.querySelectorAll('.page');
+    const flip = new St.PageFlip(document.getElementById("my-flipbook"), {
+      width: 300,
+      height: 400,
+      size: "fixed",
+      maxShadowOpacity: 0.5,
+      showCover: true,
+      mobileScrollSupport: false
+    });
 
-    function updateBook() {
-      book.style.transform = `rotateY(${currentPage * 180}deg)`;
-    }
-
-    function nextPage() {
-      if (currentPage < pages.length - 1) {
-        currentPage++;
-        updateBook();
-      }
-    }
-
-    function prevPage() {
-      if (currentPage > 0) {
-        currentPage--;
-        updateBook();
-      }
-    }
+    flip.loadFromHTML(
+      [
+        { content: '<div class="page-content">Step 1: Complete the Qiran Form – This helps us understand your values, lifestyle, and preferences.</div>' },
+        { content: '<div class="page-content">Step 2: Initial Interview – A short conversation to discuss your expectations and confirm alignment.</div>' },
+        { content: '<div class="page-content">Step 3: Family Involvement – We reach out to your family to gain their input and blessings.</div>' },
+        { content: '<div class="page-content">Step 4: Match Shortlisting – We carefully select profiles that align with your criteria and values.</div>' },
+        { content: '<div class="page-content">Step 5: Family Coordination – We coordinate discreet meetings between families when mutual interest is found.</div>' },
+        { content: '<div class="page-content">Step 6: Proposal Phase – With family consent, a formal proposal is arranged with proper Islamic decorum.</div>' },
+        { content: '<div class="page-content">Step 7: Post-Proposal Support – Guidance on engagement, Nikah prep, and spiritual harmony as you begin your life together.</div>' }
+      ]
+    );
   </script>
 </body>
 </html>

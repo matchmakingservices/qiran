@@ -168,70 +168,88 @@
     }
 
     /* Flipbook Section */
-    .flipbook-container {
-      margin: 5rem auto;
-      width: 90%;
-      max-width: 800px;
-      perspective: 2000px;
-      position: relative;
-    }
+ .book-section {
+  background-color: #fefae0;
+  padding: 4rem 0;
+  text-align: center;
+}
 
-    .book {
-      width: 100%;
-      height: 400px;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 1s;
-    }
+.book-container {
+  position: relative;
+  perspective: 2000px;
+  width: 300px;
+  margin: auto;
+}
 
-    .page {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #fff8ed;
-      color: #5c4521;
-      border-radius: 6px;
-      padding: 2rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      backface-visibility: hidden;
-      transform-origin: left;
-      transition: transform 1s;
-    }
+.book {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s ease;
+}
 
-    .page h2 {
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #fff8e7;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  backface-visibility: hidden;
+  transform-origin: left;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-    .page p {
-      font-size: 1rem;
-      line-height: 1.5;
-    }
+.page-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #b58e42;
+  margin-bottom: 1rem;
+}
 
-    .page:nth-child(even) {
-      transform: rotateY(180deg);
-      z-index: 1;
-    }
+.page-content p {
+  font-size: 1rem;
+  color: #a0854a;
+}
 
-    .arrow {
-      position: absolute;
-      top: 45%;
-      font-size: 2rem;
-      color: #b58e42;
-      cursor: pointer;
-      background: rgba(255,255,255,0.6);
-      padding: 0.5rem 1rem;
-      border-radius: 50%;
-      user-select: none;
-    }
+.page:nth-child(1) { z-index: 5; }
+.page:nth-child(2) { z-index: 4; }
+.page:nth-child(3) { z-index: 3; }
+.page:nth-child(4) { z-index: 2; }
+.page:nth-child(5) { z-index: 1; }
 
-    .arrow.left {
-      left: -3rem;
-    }
+.flip-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 240, 200, 0.6);
+  border: none;
+  font-size: 2rem;
+  color: #b58e42;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
 
-    .arrow.right {
-      right: -3rem;
-    }
+.flip-btn:hover {
+  background: rgba(255, 230, 170, 0.9);
+}
+
+.flip-btn.right {
+  right: -3rem;
+}
+
+.flip-btn:not(.right) {
+  left: -3rem;
+}
+
 
     @media (max-width: 768px) {
       .title-arabic {
@@ -267,46 +285,65 @@
     <button class="cta-button">Start Your Journey</button>
   </section>
 
-  <section class="flipbook-container">
-    <div class="arrow left" onclick="flipPage(-1)">‹</div>
-    <div class="arrow right" onclick="flipPage(1)">›</div>
-
-    <div class="book" id="book">
-      <div class="page" style="z-index:5;">
-        <h2>Step 1: Discovery</h2>
-        <p>You fill out our detailed Qiran form or contact us for personalized rishta matchmaking.</p>
+<section class="book-section">
+  <div class="book-container">
+    <div class="book">
+      <div class="page" id="page1">
+        <div class="page-content">
+          <h3>Step 1</h3>
+          <p>Initial consultation and understanding family expectations</p>
+        </div>
       </div>
-      <div class="page" style="z-index:4;">
-        <h2>Step 2: Compatibility</h2>
-        <p>We carefully evaluate compatibility, values, and background before recommending matches.</p>
+      <div class="page" id="page2">
+        <div class="page-content">
+          <h3>Step 2</h3>
+          <p>Match selection based on preferences and deen alignment</p>
+        </div>
       </div>
-      <div class="page" style="z-index:3;">
-        <h2>Step 3: Introduction</h2>
-        <p>Farheen personally arranges the initial connection and facilitates understanding.</p>
+      <div class="page" id="page3">
+        <div class="page-content">
+          <h3>Step 3</h3>
+          <p>Communication and coordination with both families</p>
+        </div>
       </div>
-      <div class="page" style="z-index:2;">
-        <h2>Step 4: Communication</h2>
-        <p>We help coordinate meetings and answer questions with full Islamic integrity.</p>
+      <div class="page" id="page4">
+        <div class="page-content">
+          <h3>Step 4</h3>
+          <p>Family meetings, feedback loops, and Istikhara guidance</p>
+        </div>
       </div>
-      <div class="page" style="z-index:1;">
-        <h2>Step 5: Nikkah Support</h2>
-        <p>When hearts align, we help your families move toward a blessed nikkah with dua.</p>
+      <div class="page" id="page5">
+        <div class="page-content">
+          <h3>Step 5</h3>
+          <p>Final decision, closure, and duas for a blessed union</p>
+        </div>
       </div>
     </div>
-  </section>
+    <button class="flip-btn" onclick="flipPrev()">&#10094;</button>
+    <button class="flip-btn right" onclick="flipNext()">&#10095;</button>
+  </div>
+</section>
 
-  <script>
-    let currentPage = 0;
-    const pages = document.querySelectorAll(".page");
 
-    function flipPage(direction) {
-      if ((direction === 1 && currentPage >= pages.length) ||
-          (direction === -1 && currentPage <= 0)) return;
+<script>
+  let currentPage = 0;
+  const pages = document.querySelectorAll('.page');
 
-      pages[currentPage].style.transform = direction === 1 ? "rotateY(-180deg)" : "rotateY(0deg)";
-      currentPage += direction;
+  function flipNext() {
+    if (currentPage < pages.length - 1) {
+      pages[currentPage].style.transform = 'rotateY(-180deg)';
+      currentPage++;
     }
-  </script>
+  }
+
+  function flipPrev() {
+    if (currentPage > 0) {
+      currentPage--;
+      pages[currentPage].style.transform = 'rotateY(0deg)';
+    }
+  }
+</script>
+
 
 </body>
 </html>

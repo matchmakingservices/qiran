@@ -48,67 +48,92 @@
       align-items: center;
       margin: 4rem auto 6rem;
       position: relative;
-      max-width: 600px;
+      max-width: 800px;
       perspective: 2000px;
     }
 
     #my-flipbook {
-      width: 600px;
-      height: 400px;
-      background: #fffaf3;
+      width: 800px;
+      height: 500px;
+      position: relative;
+      z-index: 1;
     }
 
-    #my-flipbook .page {
-      width: 300px;
-      height: 400px;
-      background: #fffaf3;
-      position: absolute;
-      transform-style: preserve-3d;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-      transition: transform 1.2s;
+    .hard {
+      background: #f0e6d2 !important;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
     }
 
-    .page-content {
-      padding: 2rem;
-      font-size: 1rem;
+    .page {
+      background: #fffaf3;
       color: #7a6b53;
-      height: 100%;
+      padding: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+      font-size: 18px;
+      line-height: 1.6;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .page-wrapper {
+      perspective: 2000px;
     }
 
     .book-nav-arrow {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 36px;
-      height: 36px;
-      background-color: rgba(255,255,255,0.8);
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255,255,255,0.9);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 24px;
       font-weight: bold;
       color: #a08852;
       cursor: pointer;
       z-index: 10;
-      transition: background 0.3s;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     .book-nav-arrow:hover {
-      background-color: rgba(255,255,255,1);
+      background-color: #f9e1aa;
+      transform: translateY(-50%) scale(1.1);
     }
-    .arrow-left { left: -50px; }
-    .arrow-right { right: -50px; }
+    .arrow-left { left: -70px; }
+    .arrow-right { right: -70px; }
 
-    @media (max-width:600px){
+    /* Page numbers */
+    .page-number {
+      position: absolute;
+      bottom: 10px;
+      font-size: 12px;
+      color: #b49a6b;
+    }
+    .page-number.left { left: 10px; }
+    .page-number.right { right: 10px; }
+
+    @media (max-width: 768px) {
       .hero .title-arabic { font-size:3rem; }
-      #my-flipbook { width: 300px; height: 200px; }
-      #my-flipbook .page { width: 150px; height: 200px; }
+      #my-flipbook { 
+        width: 100%;
+        height: 400px;
+      }
+      .book-nav-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
       .arrow-left { left: 10px; }
       .arrow-right { right: 10px; }
+      .page {
+        padding: 20px;
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -125,34 +150,135 @@
   </section>
 
   <div class="book-section">
-    <div class="book-nav-arrow arrow-left" onclick="if ($('#my-flipbook').turn('page') > 1) $('#my-flipbook').turn('previous')">‹</div>
+    <div class="book-nav-arrow arrow-left" id="prev-page">‹</div>
     <div id="my-flipbook">
-      <div class="page"><div class="page-content">Step 1: Complete the Qiran Form – This helps us understand your values, lifestyle, and preferences.</div></div>
-      <div class="page"><div class="page-content">Step 2: Initial Interview – A short conversation to discuss your expectations and confirm alignment.</div></div>
-      <div class="page"><div class="page-content">Step 3: Family Involvement – We reach out to your family to gain their input and blessings.</div></div>
-      <div class="page"><div class="page-content">Step 4: Match Shortlisting – We carefully select profiles that align with your criteria and values.</div></div>
-      <div class="page"><div class="page-content">Step 5: Family Coordination – We coordinate discreet meetings between families when mutual interest is found.</div></div>
-      <div class="page"><div class="page-content">Step 6: Proposal Phase – With family consent, a formal proposal is arranged with proper Islamic decorum.</div></div>
-      <div class="page"><div class="page-content">Step 7: Post-Proposal Support – Guidance on engagement, Nikah prep, and spiritual harmony as you begin your life together.</div></div>
+      <!-- Cover -->
+      <div class="hard" data-density="hard"> 
+        <div style="width:100%;height:100%;background:linear-gradient(135deg, #f5e7d0, #e8d5b5);display:flex;align-items:center;justify-content:center;flex-direction:column;">
+          <div style="font-family:'Amiri',serif;font-size:3rem;color:#9c7b34;">قِرَان</div>
+          <div style="margin-top:1rem;font-size:1.2rem;color:#b49a6b;">The Sacred Journey</div>
+        </div>
+      </div>
+      
+      <!-- Pages -->
+      <div class="page">
+        <div class="page-content">
+          <h3>Step 1: Complete the Qiran Form</h3>
+          <p>This helps us understand your values, lifestyle, and preferences in detail.</p>
+        </div>
+        <div class="page-number left">1</div>
+      </div>
+      <div class="page">
+        <div class="page-content">
+          <h3>Step 2: Initial Interview</h3>
+          <p>A short conversation to discuss your expectations and confirm alignment with our approach.</p>
+        </div>
+        <div class="page-number right">2</div>
+      </div>
+      <div class="page">
+        <div class="page-content">
+          <h3>Step 3: Family Involvement</h3>
+          <p>We reach out to your family to gain their valuable input and blessings.</p>
+        </div>
+        <div class="page-number left">3</div>
+      </div>
+      <div class="page">
+        <div class="page-content">
+          <h3>Step 4: Match Shortlisting</h3>
+          <p>We carefully select profiles that align with your criteria and spiritual values.</p>
+        </div>
+        <div class="page-number right">4</div>
+      </div>
+      <div class="page">
+        <div class="page-content">
+          <h3>Step 5: Family Coordination</h3>
+          <p>We coordinate discreet meetings between families when mutual interest is found.</p>
+        </div>
+        <div class="page-number left">5</div>
+      </div>
+      <div class="page">
+        <div class="page-content">
+          <h3>Step 6: Proposal Phase</h3>
+          <p>With family consent, a formal proposal is arranged with proper Islamic decorum.</p>
+        </div>
+        <div class="page-number right">6</div>
+      </div>
+      <div class="page">
+        <div class="page-content">
+          <h3>Step 7: Post-Proposal Support</h3>
+          <p>Guidance on engagement, Nikah preparation, and building spiritual harmony.</p>
+        </div>
+        <div class="page-number left">7</div>
+      </div>
+      
+      <!-- Back Cover -->
+      <div class="hard" data-density="hard">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg, #e8d5b5, #f5e7d0);display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center;padding:2rem;">
+            <div style="font-size:1.5rem;color:#9c7b34;margin-bottom:1rem;">Begin Your Sacred Journey</div>
+            <button style="padding:0.8rem 2rem;background:#f9e1aa;color:#9c7b34;border:none;border-radius:8px;cursor:pointer;font-weight:bold;">Contact Us</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="book-nav-arrow arrow-right" onclick="if ($('#my-flipbook').turn('page') < $('#my-flipbook').turn('pages')) $('#my-flipbook').turn('next')">›</div>
+    <div class="book-nav-arrow arrow-right" id="next-page">›</div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3.1.0/turn.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.1/turn.min.js"></script>
   <script>
     $(document).ready(function() {
       $("#my-flipbook").turn({
-        width: 600,
-        height: 400,
+        width: 800,
+        height: 500,
         autoCenter: true,
-        gradients: true,
-        elevation: 150,
         display: 'double',
         acceleration: true,
-        duration: 1200,
-        turnCorners: 'bl,br',
-        startPage: 1
+        elevation: 50,
+        gradients: true,
+        duration: 1000,
+        when: {
+          turning: function(e, page, view) {
+            // Add class to current page for animation
+            $('.page-wrapper').removeClass('active-page');
+            $(view[0]).addClass('active-page');
+          }
+        }
+      });
+      
+      // Navigation controls
+      $('#prev-page').click(function() {
+        $('#my-flipbook').turn('previous');
+      });
+      
+      $('#next-page').click(function() {
+        $('#my-flipbook').turn('next');
+      });
+      
+      // Keyboard navigation
+      $(document).keydown(function(e) {
+        if (e.keyCode == 37) { // Left arrow
+          $('#my-flipbook').turn('previous');
+          e.preventDefault();
+        } else if (e.keyCode == 39) { // Right arrow
+          $('#my-flipbook').turn('next');
+          e.preventDefault();
+        }
+      });
+      
+      // Disable navigation buttons at boundaries
+      $("#my-flipbook").bind("turning", function(event, page, view) {
+        if (page == 1) {
+          $('#prev-page').css('opacity', 0.5).css('pointer-events', 'none');
+        } else {
+          $('#prev-page').css('opacity', 1).css('pointer-events', 'auto');
+        }
+        
+        if (page == $("#my-flipbook").turn("pages")) {
+          $('#next-page').css('opacity', 0.5).css('pointer-events', 'none');
+        } else {
+          $('#next-page').css('opacity', 1).css('pointer-events', 'auto');
+        }
       });
     });
   </script>

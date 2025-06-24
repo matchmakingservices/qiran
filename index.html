@@ -44,7 +44,7 @@
     @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
     .book-container {
-      margin: 4rem auto 6rem;
+      margin: 4rem auto 2rem;
       width: 800px;
       height: 500px;
       position: relative;
@@ -83,33 +83,34 @@
     .page-number.left { left: 15px; }
     .page-number.right { right: 15px; }
 
+    .nav-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
     .book-nav-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       background-color: rgba(255,255,255,0.9);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: bold;
       color: #a08852;
       cursor: pointer;
-      z-index: 100;
       transition: all 0.3s;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       border: none;
       outline: none;
     }
     .book-nav-arrow:hover {
       background-color: #f9e1aa;
-      transform: translateY(-50%) scale(1.1);
+      transform: scale(1.1);
     }
-    .arrow-left { left: -70px; }
-    .arrow-right { right: -70px; }
 
     @media (max-width: 900px) {
       .book-container {
@@ -121,15 +122,6 @@
         width: 50%;
         height: 400px;
       }
-      
-      .book-nav-arrow {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-      }
-      
-      .arrow-left { left: -50px; }
-      .arrow-right { right: -50px; }
     }
 
     @media (max-width: 600px) {
@@ -148,9 +140,6 @@
         width: 36px;
         height: 36px;
       }
-      
-      .arrow-left { left: 10px; }
-      .arrow-right { right: 10px; }
     }
   </style>
 </head>
@@ -167,7 +156,6 @@
   </section>
 
   <div class="book-container">
-    <button class="book-nav-arrow arrow-left" id="prev-btn">‹</button>
     <div id="flipbook">
       <!-- Front Cover -->
       <div class="hard">
@@ -250,7 +238,11 @@
         </div>
       </div>
     </div>
-    <button class="book-nav-arrow arrow-right" id="next-btn">›</button>
+  </div>
+
+  <div class="nav-container">
+    <button class="book-nav-arrow" id="prev-btn">‹</button>
+    <button class="book-nav-arrow" id="next-btn">›</button>
   </div>
 
   <!-- Include Turn.js from CDN -->
@@ -259,16 +251,32 @@
   
   <script>
     $(document).ready(function() {
-      // Initialize the flipbook
+      // Initialize the flipbook with proper settings
       $('#flipbook').turn({
         width: 800,
         height: 500,
         autoCenter: true,
-        display: 'double',
-        acceleration: true,
-        elevation: 50,
-        gradients: true,
-        duration: 1000
+        display: 'double', // Show two pages
+        acceleration: true, // Smooth animation
+        elevation: 50, // 3D depth
+        gradients: true, // Page shading
+        duration: 800, // Animation speed
+        when: {
+          turning: function(e, page) {
+            // Disable/enable arrows based on position
+            if (page == 1) {
+              $('#prev-btn').prop('disabled', true).css('opacity', 0.5);
+            } else {
+              $('#prev-btn').prop('disabled', false).css('opacity', 1);
+            }
+            
+            if (page == $('#flipbook').turn('pages')) {
+              $('#next-btn').prop('disabled', true).css('opacity', 0.5);
+            } else {
+              $('#next-btn').prop('disabled', false).css('opacity', 1);
+            }
+          }
+        }
       });
 
       // Navigation buttons
@@ -295,6 +303,9 @@
       $(window).resize(function() {
         $('#flipbook').turn('size', $('#flipbook').width(), $('#flipbook').height());
       }).resize();
+      
+      // Disable prev button initially
+      $('#prev-btn').prop('disabled', true).css('opacity', 0.5);
     });
   </script>
 </body>

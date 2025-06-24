@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>قِرَان - Qiran</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
   <style>
-    /* General Reset */
     * {
       margin: 0;
       padding: 0;
@@ -14,27 +13,31 @@
     }
 
     body {
-      font-family: 'Amiri', serif;
-      background: url('https://www.transparenttextures.com/patterns/arabesque.png'), linear-gradient(to bottom, #fffaf0, #fbe8d3);
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(145deg, #fff8f2, #fbeedb);
       color: #b58e42;
       overflow-x: hidden;
     }
 
     header {
+      width: 100%;
+      padding: 1.5rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 2rem;
-      background: rgba(255, 255, 255, 0.8);
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 10;
+      left: 0;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
-    header a.logo {
+    .logo {
       font-size: 1.5rem;
       font-weight: bold;
-      text-decoration: none;
+      cursor: pointer;
       color: #b58e42;
     }
 
@@ -43,329 +46,178 @@
       text-decoration: none;
       color: #b58e42;
       font-weight: 500;
+      transition: 0.3s;
     }
 
     nav a:hover {
-      color: #a67c00;
+      color: #9c7b34;
     }
 
-    /* Arabic Title Animation */
-    .hero {
+    .container {
       text-align: center;
-      padding: 15vh 2rem 5vh;
-      position: relative;
+      padding-top: 25vh;
+      padding-bottom: 5vh;
     }
-/* Navbar Enhancements */
-.navbar-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  width: 100%;
-  max-width: 1200px;
-  margin: auto;
-}
 
-.menu-icon {
-  font-size: 2rem;
-  cursor: pointer;
-  display: none;
-  color: #b58e42;
-}
-
-#menu-toggle {
-  display: none;
-}
-
-.navbar-links {
-  display: flex;
-  gap: 2rem;
-  transition: max-height 0.3s ease-in-out;
-}
-
-.navbar-links a {
-  text-decoration: none;
-  color: #b58e42;
-  font-weight: 500;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.navbar-links a::after {
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  left: 0;
-  bottom: -4px;
-  background-color: #b58e42;
-  transition: width 0.3s ease;
-}
-
-.navbar-links a:hover::after {
-  width: 100%;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .menu-icon {
-    display: block;
-  }
-
-  .navbar-links {
-    width: 100%;
-    flex-direction: column;
-    overflow: hidden;
-    max-height: 0;
-    margin-top: 1rem;
-  }
-
-  #menu-toggle:checked + .menu-icon + .navbar-links {
-    max-height: 500px;
-  }
-
-  .navbar-links a {
-    padding: 0.5rem 0;
-  }
-}
-
-  .arabic-draw-container {
-  text-align: center;
-  margin-top: 8rem;
-  margin-bottom: 2rem;
-}
-
-.arabic-heading {
-  width: 300px;
-  height: 100px;
-  animation: drawArabic 3s ease forwards;
-}
-
-@keyframes drawArabic {
-  from {
-    stroke-dashoffset: 900;
-    opacity: 0;
-  }
-  to {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-}
-
-
-    @keyframes drawArabic {
-      0% { width: 0; }
-      100% { width: 12ch; border-right: none; }
+    .title-arabic {
+      font-size: 5rem;
+      font-family: 'Amiri', serif;
+      background: linear-gradient(to right, #d4af37, #eac97a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 2s ease forwards;
     }
 
     .subtitle {
-      margin-top: 1rem;
       font-size: 1.2rem;
-      color: #9c7b34;
+      margin-top: 1rem;
+      color: #b49a6b;
     }
 
     .cta-button {
       margin-top: 2rem;
-      padding: 0.75rem 2rem;
+      padding: 0.8rem 2rem;
       border: none;
       background-color: #f9e1aa;
       color: #9c7b34;
-      font-weight: bold;
       border-radius: 8px;
+      font-weight: 600;
       cursor: pointer;
     }
 
-    /* Flipbook Section */
- .book-section {
-  background-color: #fefae0;
-  padding: 4rem 0;
-  text-align: center;
-}
+    .cta-button:hover {
+      background-color: #f8d68a;
+    }
 
-.book-container {
-  position: relative;
-  perspective: 2000px;
-  width: 300px;
-  margin: auto;
-}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-.book {
-  width: 100%;
-  height: 400px;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 1s ease;
-}
+    /* Book Section */
+    .book-section {
+      margin-top: 10vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
 
-.page {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #fff8e7;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  backface-visibility: hidden;
-  transform-origin: left;
-  padding: 2rem 1.5rem;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
+    .book-container {
+      perspective: 2000px;
+      width: 300px;
+      height: 400px;
+      position: relative;
+    }
 
-.page-content h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  color: #b58e42;
-  margin-bottom: 1rem;
-}
+    .book {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      transform-style: preserve-3d;
+      transition: transform 1s ease;
+    }
 
-.page-content p {
-  font-size: 1rem;
-  color: #a0854a;
-}
+    .page {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background-color: #fffaf3;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e5d5b4;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      padding: 1rem;
+    }
 
-.page:nth-child(1) { z-index: 5; }
-.page:nth-child(2) { z-index: 4; }
-.page:nth-child(3) { z-index: 3; }
-.page:nth-child(4) { z-index: 2; }
-.page:nth-child(5) { z-index: 1; }
+    .page:nth-child(1) { transform: rotateY(0deg); }
+    .page:nth-child(2) { transform: rotateY(180deg); }
+    .page:nth-child(3) { transform: rotateY(360deg); }
+    .page:nth-child(4) { transform: rotateY(540deg); }
+    .page:nth-child(5) { transform: rotateY(720deg); }
 
-.flip-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 240, 200, 0.6);
-  border: none;
-  font-size: 2rem;
-  color: #b58e42;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-radius: 50%;
-  transition: background 0.3s;
-}
+    .nav-buttons {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
 
-.flip-btn:hover {
-  background: rgba(255, 230, 170, 0.9);
-}
+    .nav-buttons button {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid #d9c28f;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #a08852;
+    }
 
-.flip-btn.right {
-  right: -3rem;
-}
-
-.flip-btn:not(.right) {
-  left: -3rem;
-}
-
-
-    @media (max-width: 768px) {
-      .title-arabic {
-        font-size: 3.2rem;
-      }
-      .page {
-        height: 300px;
-        padding: 1rem;
-      }
-      .arrow.left { left: -2rem; }
-      .arrow.right { right: -2rem; }
+    @media (max-width: 600px) {
+      .title-arabic { font-size: 3rem; }
+      .subtitle { font-size: 1rem; padding: 0 1rem; }
+      .book-container { width: 260px; height: 350px; }
     }
   </style>
 </head>
 <body>
-
   <header>
-  <div class="navbar-container">
-    <a href="index.html" class="logo">Qiran</a>
-    <input type="checkbox" id="menu-toggle">
-    <label for="menu-toggle" class="menu-icon">&#9776;</label>
-    <nav class="navbar-links">
+    <div class="logo" onclick="window.location.href='index.html'">Qiran</div>
+    <nav>
       <a href="services.html">Services</a>
       <a href="mission.html">Our Mission</a>
       <a href="contact.html">Contact</a>
     </nav>
+  </header>
+
+  <div class="container">
+    <div class="title-arabic">قِرَان</div>
+    <div class="subtitle">Where souls meet in sacred harmony</div>
+    <button class="cta-button">Start Your Journey</button>
   </div>
-</header>
 
-<div class="arabic-draw-container">
-  <svg viewBox="0 0 500 100" class="arabic-heading">
-    <defs>
-      <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#d4af37" />
-        <stop offset="100%" stop-color="#b58e42" />
-      </linearGradient>
-    </defs>
-    <path d="M50,60 Q60,30 80,60 T130,60 Q140,30 160,60 T210,60 Q220,30 240,60 T290,60 Q300,30 320,60" 
-          fill="none" 
-          stroke="url(#gold-gradient)" 
-          stroke-width="3" 
-          stroke-linecap="round" 
-          stroke-dasharray="900" 
-          stroke-dashoffset="900" />
-    <text x="80" y="70" text-anchor="middle" font-size="42" fill="url(#gold-gradient)" font-family="'Amiri', serif">قِرَان</text>
-  </svg>
-</div>
-
-
-<section class="book-section">
-  <div class="book-container">
-    <div class="book">
-      <div class="page" id="page1">
-        <div class="page-content">
-          <h3>Step 1</h3>
-          <p>Initial consultation and understanding family expectations</p>
-        </div>
-      </div>
-      <div class="page" id="page2">
-        <div class="page-content">
-          <h3>Step 2</h3>
-          <p>Match selection based on preferences and deen alignment</p>
-        </div>
-      </div>
-      <div class="page" id="page3">
-        <div class="page-content">
-          <h3>Step 3</h3>
-          <p>Communication and coordination with both families</p>
-        </div>
-      </div>
-      <div class="page" id="page4">
-        <div class="page-content">
-          <h3>Step 4</h3>
-          <p>Family meetings, feedback loops, and Istikhara guidance</p>
-        </div>
-      </div>
-      <div class="page" id="page5">
-        <div class="page-content">
-          <h3>Step 5</h3>
-          <p>Final decision, closure, and duas for a blessed union</p>
-        </div>
+  <section class="book-section">
+    <div class="book-container">
+      <div id="book" class="book">
+        <div class="page">Step 1: Initial Consultation</div>
+        <div class="page">Step 2: Family Background Review</div>
+        <div class="page">Step 3: Match Shortlisting</div>
+        <div class="page">Step 4: Family Coordination</div>
+        <div class="page">Step 5: Final Meeting & Proposal</div>
       </div>
     </div>
-    <button class="flip-btn" onclick="flipPrev()">&#10094;</button>
-    <button class="flip-btn right" onclick="flipNext()">&#10095;</button>
-  </div>
-</section>
+    <div class="nav-buttons">
+      <button onclick="prevPage()">&lt;</button>
+      <button onclick="nextPage()">&gt;</button>
+    </div>
+  </section>
 
+  <script>
+    let currentPage = 0;
+    const book = document.getElementById('book');
+    const pages = document.querySelectorAll('.page');
 
-<script>
-  let currentPage = 0;
-  const pages = document.querySelectorAll('.page');
-
-  function flipNext() {
-    if (currentPage < pages.length - 1) {
-      pages[currentPage].style.transform = 'rotateY(-180deg)';
-      currentPage++;
+    function updateBook() {
+      book.style.transform = `rotateY(${currentPage * 180}deg)`;
     }
-  }
 
-  function flipPrev() {
-    if (currentPage > 0) {
-      currentPage--;
-      pages[currentPage].style.transform = 'rotateY(0deg)';
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        currentPage++;
+        updateBook();
+      }
     }
-  }
-</script>
 
-
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        updateBook();
+      }
+    }
+  </script>
 </body>
 </html>

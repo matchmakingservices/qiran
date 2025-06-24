@@ -12,6 +12,7 @@
       background: linear-gradient(to bottom, #fff8f2, #fbeedb);
       color: #b58e42;
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
     header {
@@ -42,44 +43,45 @@
     .cta-button:hover { background:#f8d68a; }
     @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
-    .book-section {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .book-container {
       margin: 4rem auto 6rem;
-      position: relative;
-      max-width: 800px;
-      perspective: 2000px;
-    }
-
-    #my-flipbook {
       width: 800px;
       height: 500px;
       position: relative;
-      z-index: 1;
     }
 
-    .hard {
-      background: #f0e6d2 !important;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    #flipbook {
+      width: 100%;
+      height: 100%;
     }
 
-    .page {
+    #flipbook .page {
+      width: 400px;
+      height: 500px;
       background: #fffaf3;
       color: #7a6b53;
       padding: 40px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
       text-align: center;
-      font-size: 18px;
-      line-height: 1.6;
       box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
     }
 
-    .page-wrapper {
-      perspective: 2000px;
+    #flipbook .hard {
+      background: #f0e6d2 !important;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.1), 0 0 20px rgba(0,0,0,0.2);
     }
+
+    .page-number {
+      position: absolute;
+      bottom: 15px;
+      font-size: 12px;
+      color: #b49a6b;
+    }
+    .page-number.left { left: 15px; }
+    .page-number.right { right: 15px; }
 
     .book-nav-arrow {
       position: absolute;
@@ -96,9 +98,11 @@
       font-weight: bold;
       color: #a08852;
       cursor: pointer;
-      z-index: 10;
+      z-index: 100;
       transition: all 0.3s;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border: none;
+      outline: none;
     }
     .book-nav-arrow:hover {
       background-color: #f9e1aa;
@@ -107,33 +111,46 @@
     .arrow-left { left: -70px; }
     .arrow-right { right: -70px; }
 
-    /* Page numbers */
-    .page-number {
-      position: absolute;
-      bottom: 10px;
-      font-size: 12px;
-      color: #b49a6b;
-    }
-    .page-number.left { left: 10px; }
-    .page-number.right { right: 10px; }
-
-    @media (max-width: 768px) {
-      .hero .title-arabic { font-size:3rem; }
-      #my-flipbook { 
-        width: 100%;
+    @media (max-width: 900px) {
+      .book-container {
+        width: 90%;
         height: 400px;
       }
+      
+      #flipbook .page {
+        width: 50%;
+        height: 400px;
+      }
+      
       .book-nav-arrow {
         width: 40px;
         height: 40px;
         font-size: 20px;
       }
+      
+      .arrow-left { left: -50px; }
+      .arrow-right { right: -50px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero .title-arabic { font-size:3rem; }
+      
+      .book-container {
+        height: 300px;
+      }
+      
+      #flipbook .page {
+        height: 300px;
+        padding: 20px;
+      }
+      
+      .book-nav-arrow {
+        width: 36px;
+        height: 36px;
+      }
+      
       .arrow-left { left: 10px; }
       .arrow-right { right: 10px; }
-      .page {
-        padding: 20px;
-        font-size: 16px;
-      }
     }
   </style>
 </head>
@@ -149,70 +166,82 @@
     <button class="cta-button">Start Your Journey</button>
   </section>
 
-  <div class="book-section">
-    <div class="book-nav-arrow arrow-left" id="prev-page">‹</div>
-    <div id="my-flipbook">
-      <!-- Cover -->
-      <div class="hard" data-density="hard"> 
+  <div class="book-container">
+    <button class="book-nav-arrow arrow-left" id="prev-btn">‹</button>
+    <div id="flipbook">
+      <!-- Front Cover -->
+      <div class="hard">
         <div style="width:100%;height:100%;background:linear-gradient(135deg, #f5e7d0, #e8d5b5);display:flex;align-items:center;justify-content:center;flex-direction:column;">
           <div style="font-family:'Amiri',serif;font-size:3rem;color:#9c7b34;">قِرَان</div>
           <div style="margin-top:1rem;font-size:1.2rem;color:#b49a6b;">The Sacred Journey</div>
         </div>
       </div>
       
-      <!-- Pages -->
-      <div class="page">
-        <div class="page-content">
+      <!-- Page 1 -->
+      <div>
+        <div class="page">
           <h3>Step 1: Complete the Qiran Form</h3>
           <p>This helps us understand your values, lifestyle, and preferences in detail.</p>
+          <div class="page-number left">1</div>
         </div>
-        <div class="page-number left">1</div>
       </div>
-      <div class="page">
-        <div class="page-content">
+      
+      <!-- Page 2 -->
+      <div>
+        <div class="page">
           <h3>Step 2: Initial Interview</h3>
           <p>A short conversation to discuss your expectations and confirm alignment with our approach.</p>
+          <div class="page-number right">2</div>
         </div>
-        <div class="page-number right">2</div>
       </div>
-      <div class="page">
-        <div class="page-content">
+      
+      <!-- Page 3 -->
+      <div>
+        <div class="page">
           <h3>Step 3: Family Involvement</h3>
           <p>We reach out to your family to gain their valuable input and blessings.</p>
+          <div class="page-number left">3</div>
         </div>
-        <div class="page-number left">3</div>
       </div>
-      <div class="page">
-        <div class="page-content">
+      
+      <!-- Page 4 -->
+      <div>
+        <div class="page">
           <h3>Step 4: Match Shortlisting</h3>
           <p>We carefully select profiles that align with your criteria and spiritual values.</p>
+          <div class="page-number right">4</div>
         </div>
-        <div class="page-number right">4</div>
       </div>
-      <div class="page">
-        <div class="page-content">
+      
+      <!-- Page 5 -->
+      <div>
+        <div class="page">
           <h3>Step 5: Family Coordination</h3>
           <p>We coordinate discreet meetings between families when mutual interest is found.</p>
+          <div class="page-number left">5</div>
         </div>
-        <div class="page-number left">5</div>
       </div>
-      <div class="page">
-        <div class="page-content">
+      
+      <!-- Page 6 -->
+      <div>
+        <div class="page">
           <h3>Step 6: Proposal Phase</h3>
           <p>With family consent, a formal proposal is arranged with proper Islamic decorum.</p>
+          <div class="page-number right">6</div>
         </div>
-        <div class="page-number right">6</div>
       </div>
-      <div class="page">
-        <div class="page-content">
+      
+      <!-- Page 7 -->
+      <div>
+        <div class="page">
           <h3>Step 7: Post-Proposal Support</h3>
           <p>Guidance on engagement, Nikah preparation, and building spiritual harmony.</p>
+          <div class="page-number left">7</div>
         </div>
-        <div class="page-number left">7</div>
       </div>
       
       <!-- Back Cover -->
-      <div class="hard" data-density="hard">
+      <div class="hard">
         <div style="width:100%;height:100%;background:linear-gradient(135deg, #e8d5b5, #f5e7d0);display:flex;align-items:center;justify-content:center;">
           <div style="text-align:center;padding:2rem;">
             <div style="font-size:1.5rem;color:#9c7b34;margin-bottom:1rem;">Begin Your Sacred Journey</div>
@@ -221,14 +250,17 @@
         </div>
       </div>
     </div>
-    <div class="book-nav-arrow arrow-right" id="next-page">›</div>
+    <button class="book-nav-arrow arrow-right" id="next-btn">›</button>
   </div>
 
+  <!-- Include Turn.js from CDN -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.1/turn.min.js"></script>
+  
   <script>
     $(document).ready(function() {
-      $("#my-flipbook").turn({
+      // Initialize the flipbook
+      $('#flipbook').turn({
         width: 800,
         height: 500,
         autoCenter: true,
@@ -236,50 +268,33 @@
         acceleration: true,
         elevation: 50,
         gradients: true,
-        duration: 1000,
-        when: {
-          turning: function(e, page, view) {
-            // Add class to current page for animation
-            $('.page-wrapper').removeClass('active-page');
-            $(view[0]).addClass('active-page');
-          }
-        }
+        duration: 1000
       });
-      
-      // Navigation controls
-      $('#prev-page').click(function() {
-        $('#my-flipbook').turn('previous');
+
+      // Navigation buttons
+      $('#prev-btn').click(function() {
+        $('#flipbook').turn('previous');
       });
-      
-      $('#next-page').click(function() {
-        $('#my-flipbook').turn('next');
+
+      $('#next-btn').click(function() {
+        $('#flipbook').turn('next');
       });
-      
+
       // Keyboard navigation
       $(document).keydown(function(e) {
         if (e.keyCode == 37) { // Left arrow
-          $('#my-flipbook').turn('previous');
+          $('#flipbook').turn('previous');
           e.preventDefault();
         } else if (e.keyCode == 39) { // Right arrow
-          $('#my-flipbook').turn('next');
+          $('#flipbook').turn('next');
           e.preventDefault();
         }
       });
-      
-      // Disable navigation buttons at boundaries
-      $("#my-flipbook").bind("turning", function(event, page, view) {
-        if (page == 1) {
-          $('#prev-page').css('opacity', 0.5).css('pointer-events', 'none');
-        } else {
-          $('#prev-page').css('opacity', 1).css('pointer-events', 'auto');
-        }
-        
-        if (page == $("#my-flipbook").turn("pages")) {
-          $('#next-page').css('opacity', 0.5).css('pointer-events', 'none');
-        } else {
-          $('#next-page').css('opacity', 1).css('pointer-events', 'auto');
-        }
-      });
+
+      // Handle window resize
+      $(window).resize(function() {
+        $('#flipbook').turn('size', $('#flipbook').width(), $('#flipbook').height());
+      }).resize();
     });
   </script>
 </body>

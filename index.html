@@ -4,51 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>قِرَان - Qiran</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
       padding: 0;
       font-family: 'Playfair Display', serif;
+      background: linear-gradient(to bottom, #fefae0, #fcebd5);
+      color: #b58e42;
       scroll-behavior: smooth;
-      overflow-x: hidden;
-      background: #fefae0;
-      position: relative;
-    }
-
-    /* Islamic Pattern Background */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='5' cy='5' r='0.4' fill='%23e0c383'/%3E%3C/svg%3E");
-      opacity: 0.08;
-      z-index: -1;
     }
 
     header {
       position: fixed;
-      width: 100%;
       top: 0;
+      width: 100%;
       padding: 1.2rem 2rem;
+      background-color: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(255, 250, 230, 0.9);
-      box-shadow: 0 1px 8px rgba(0,0,0,0.05);
       z-index: 1000;
-    }
-
-    .logo {
-      font-weight: bold;
-      font-size: 1.4rem;
-      color: #b58e42;
     }
 
     nav a {
@@ -56,7 +33,6 @@
       text-decoration: none;
       color: #b58e42;
       font-weight: 500;
-      transition: color 0.3s;
     }
 
     nav a:hover {
@@ -64,86 +40,119 @@
     }
 
     .container {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      padding-top: 30vh;
+      padding-bottom: 20vh;
       text-align: center;
-      padding: 0 1rem;
-      animation: fadeIn 1.2s ease-out;
     }
 
     .title-arabic {
-      font-family: 'Scheherazade New', serif;
-      font-size: 7rem;
-      direction: rtl;
-      background: linear-gradient(to right, #bda873, #e8d59f, #b58e42);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 1px;
-      margin-bottom: 1rem;
+      font-size: 6rem;
+      font-family: 'Amiri', serif;
+      color: #b58e42;
     }
 
     .subtitle {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: #b49a6b;
-      animation: fadeIn 1.5s ease-out;
+      margin-top: 1rem;
     }
 
     .cta-button {
       margin-top: 2rem;
-      padding: 0.75rem 2rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
+      padding: 0.8rem 2rem;
       background-color: #f9e1aa;
       color: #9c7b34;
-      font-weight: 500;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
+      font-weight: bold;
     }
 
     .cta-button:hover {
       background-color: #f8d68a;
-      transform: scale(1.03);
     }
 
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
+    /* Flipbook Section */
+    #qiran-process {
+      padding: 4rem 1rem;
+      background-color: #fdf7ea;
+      text-align: center;
     }
 
-    @media (max-width: 768px) {
+    #flipbook-container {
+      position: relative;
+      width: 320px;
+      height: 200px;
+      margin: 2rem auto;
+      perspective: 1500px;
+    }
+
+    .book-page {
+      width: 100%;
+      height: 100%;
+      background: #fff8e6;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      position: absolute;
+      top: 0;
+      left: 0;
+      backface-visibility: hidden;
+      transform-origin: left;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .page-wrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transition: transform 1.2s ease;
+    }
+
+    .arrow {
+      cursor: pointer;
+      font-size: 2rem;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #c3a663;
+      z-index: 10;
+    }
+
+    .arrow:hover {
+      color: #a88c42;
+    }
+
+    #prev {
+      left: -2rem;
+    }
+
+    #next {
+      right: -2rem;
+    }
+
+    @media (max-width: 600px) {
       .title-arabic {
         font-size: 4rem;
       }
-
-      .subtitle {
-        font-size: 1rem;
+      #flipbook-container {
+        width: 90%;
       }
-
-      .cta-button {
-        font-size: 0.95rem;
-        padding: 0.6rem 1.5rem;
-      }
-
-      nav a {
-        margin-left: 1rem;
-        font-size: 0.95rem;
-      }
-
-      header {
-        padding: 1rem 1.2rem;
+      .arrow {
+        font-size: 1.5rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
   <header>
-    <div class="logo">Qiran</div>
+    <div style="font-weight: bold;">Qiran</div>
     <nav>
       <a href="services.html">Services</a>
       <a href="mission.html">Our Mission</a>
@@ -151,12 +160,79 @@
     </nav>
   </header>
 
-  <!-- Hero -->
   <div class="container">
     <div class="title-arabic">قِرَان</div>
     <div class="subtitle">Qiran – Where souls meet in sacred harmony</div>
     <button class="cta-button">Start Your Journey</button>
   </div>
 
+  <!-- Flipbook Section -->
+  <section id="qiran-process">
+    <h2 style="font-size: 2rem; color: #b58e42;">The Qiran Process</h2>
+    <div id="flipbook-container">
+      <div id="prev" class="arrow">&#8592;</div>
+      <div id="next" class="arrow">&#8594;</div>
+      <div class="page-wrapper" id="page0" style="z-index:5;">
+        <div class="book-page">Welcome to the Qiran Process</div>
+      </div>
+      <div class="page-wrapper" id="page1" style="z-index:4;">
+        <div class="book-page">Step 1: Fill your profile with sincerity</div>
+      </div>
+      <div class="page-wrapper" id="page2" style="z-index:3;">
+        <div class="book-page">Step 2: Personal consultation with the founder</div>
+      </div>
+      <div class="page-wrapper" id="page3" style="z-index:2;">
+        <div class="book-page">Step 3: We begin curated matching & dua</div>
+      </div>
+      <div class="page-wrapper" id="page4" style="z-index:1;">
+        <div class="book-page">Step 4: Guided meetings & family involvement</div>
+      </div>
+      <div class="page-wrapper" id="page5" style="z-index:0;">
+        <div class="book-page">Step 5: A journey begins with Allah's mercy</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    let currentPage = 0;
+    const pages = document.querySelectorAll('.page-wrapper');
+    const totalPages = pages.length;
+
+    function updatePages() {
+      pages.forEach((page, index) => {
+        if (index <= currentPage) {
+          page.style.transform = 'rotateY(-180deg)';
+        } else {
+          page.style.transform = 'rotateY(0deg)';
+        }
+      });
+    }
+
+    document.getElementById('next').addEventListener('click', () => {
+      if (currentPage < totalPages - 1) {
+        currentPage++;
+        updatePages();
+      }
+    });
+
+    document.getElementById('prev').addEventListener('click', () => {
+      if (currentPage > 0) {
+        currentPage--;
+        updatePages();
+      }
+    });
+
+    // Auto flip on load
+    setTimeout(() => {
+      const interval = setInterval(() => {
+        if (currentPage < totalPages - 1) {
+          currentPage++;
+          updatePages();
+        } else {
+          clearInterval(interval);
+        }
+      }, 2000);
+    }, 1000);
+  </script>
 </body>
 </html>

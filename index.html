@@ -49,7 +49,7 @@
       margin: 4rem auto 6rem;
       position: relative;
       max-width: 600px;
-      perspective: 1000px;
+      perspective: 2000px;
     }
 
     #my-flipbook {
@@ -64,7 +64,8 @@
       background: #fffaf3;
       position: absolute;
       transform-style: preserve-3d;
-      transition: transform 1s;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transition: transform 1.2s;
     }
 
     .page-content {
@@ -146,11 +147,12 @@
         height: 400,
         autoCenter: true,
         gradients: true,
-        elevation: 100,
+        elevation: 150,
         display: 'double',
         acceleration: true,
-        duration: 1000,
-        turnCorners: 'bl,br'
+        duration: 1200,
+        turnCorners: 'bl,br',
+        startPage: 1
       });
     });
   </script>
